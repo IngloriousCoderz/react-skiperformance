@@ -62,3 +62,21 @@ console.log(deepClone[5] === numbers[5]);
   const double = [first, ...numbers, second, ...clone, last];
   console.log(double);
 }
+
+console.log(numbers.includes(2));
+
+const httpStatus = 200;
+
+if (httpStatus === 200 || httpStatus === 201 || httpStatus === 204) {
+}
+
+switch (httpStatus) {
+  case 200:
+  case 201:
+  case 204:
+}
+
+const SUCCESS_STATUSES = [200, 201, 204];
+
+if (SUCCESS_STATUSES.includes(httpStatus)) {
+}

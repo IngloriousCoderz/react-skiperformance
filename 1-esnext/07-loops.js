@@ -36,11 +36,11 @@ numbers.forEach(console.log);
 // square: [1, 2, 3, 4, 5] -> [1, 4, 9, 16, 25]
 
 {
-  const squares = [];
+  const squares = []; // init
   numbers.forEach((item) => {
-    squares.push(square(item));
+    squares.push(square(item)); // acc
   });
-  console.log(squares);
+  console.log(squares); // return
 }
 
 {
@@ -65,13 +65,14 @@ numbers.forEach(console.log);
 // evens: [1, 2, 3, 4, 5] -> [2, 4]
 
 {
-  const evens = [];
+  const evens = []; // init
   numbers.forEach((item) => {
     if (isEven(item)) {
+      // acc
       evens.push(item);
     }
   });
-  console.log(evens);
+  console.log(evens); // return
 }
 
 {
@@ -158,4 +159,84 @@ numbers.forEach(console.log);
     summation += item;
   });
   console.log(summation);
+}
+
+{
+  const summation = numbers.reduce((acc, item) => {
+    acc += item;
+    return acc;
+  }, 0);
+  console.log(summation);
+}
+
+// {
+//   const squares = numbers.reduce((acc, item) => {
+//     acc.push(square(item));
+//     return acc;
+//   }, []);
+//   console.log(squares);
+// }
+
+{
+  const summation = numbers.reduce((acc, item) => {
+    acc += item;
+    return acc;
+  });
+  console.log(summation);
+}
+
+{
+  const summation = numbers.reduce(sum);
+  console.log(summation);
+}
+
+// sumOfSquareEvens: [1, 2, 3, 4, 5] -> [2, 4] -> [4, 16] -> 20
+// sumOfEvenSquares: [1, 2, 3, 4, 5] -> [1, 4, 9, 16, 25] -> [4, 16] -> 20
+
+{
+  function sumOfSquareEvens(numbers) {
+    return numbers.reduce((acc, item) => {
+      const squared = square(item);
+      if (isEven(squared)) {
+        acc += squared;
+      }
+      return acc;
+    }, 0);
+  }
+
+  console.log(sumOfSquareEvens(numbers));
+}
+
+{
+  const squares = numbers.map(square);
+  console.log(squares);
+  const evenSquares = squares.filter(isEven);
+  console.log(evenSquares);
+  const result = evenSquares.reduce(sum);
+  console.log(result);
+}
+
+{
+  let result = numbers;
+  result = result.map(square);
+  console.log(result);
+  result = result.filter(isEven);
+  console.log(result);
+  result = result.reduce(sum);
+  console.log(result);
+}
+
+// sumOfEvenSquares: [1, 2, 3, 4, 5] -> [1, 4, 9, 16, 25] -> [4, 16] -> 20
+
+{
+  const result = numbers //
+    .map(square)
+    .filter(isEven)
+    .reduce(sum);
+  console.log(result);
+}
+
+{
+  const b = numbers.reduce((v, i) => v + (!!(i % 2) ? 0 : i ** 2), 0);
+  console.log(b);
 }

@@ -31,3 +31,9 @@ console.log(clone);
 
 const brandNewPerson = { ...person, ...clone, age: 42 };
 console.log(brandNewPerson);
+
+Object.keys(person).forEach((key) => {
+  const value = person[key];
+});
+Object.values(person).forEach((value) => {});
+Object.entries(person).forEach(([key, value]) => {});
