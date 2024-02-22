@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 // import "./index.css";
 
 // import { TodoList as App } from "./02-static-app";
-import App from "./02-static-app";
+import App from "./05-split-app";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   // React.createElement(React.StrictMode, {}, [React.createElement(App)])
