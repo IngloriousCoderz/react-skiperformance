@@ -1,15 +1,10 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import clsx from "clsx";
-import classes from "./style.module.scss";
+import { ChangeEvent, FormEvent, useState, useCallback } from "react";
+import List from "./list";
+import type { Task } from "./task";
+import Form from "./form";
 
 type TProps = {
   name?: string | null;
-};
-
-type Task = {
-  id: number;
-  text: string;
-  isCompleted?: boolean;
 };
 
 const MIN_ID = 0;
@@ -41,42 +36,30 @@ export default function TodoList({ name }: TProps) {
     setText("");
   };
 
-  const handleButtonClick = (id: number) =>
-    setTasks((tasks) => tasks.filter((task) => task.id !== id));
+  const handleButtonClick = useCallback(
+    (id: number) => setTasks((tasks) => tasks.filter((task) => task.id !== id)),
+    []
+  );
 
-  const handleSpanClick = (id: number) =>
-    setTasks((tasks) =>
-      tasks.map((task) =>
-        task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
-      )
-    );
+  const handleSpanClick = useCallback(
+    (id: number) =>
+      setTasks((tasks) =>
+        tasks.map((task) =>
+          task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
+        )
+      ),
+    []
+  );
 
   return (
     <>
       <h1>{name}'s Todo List</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="What next?"
-          autoFocus
-          value={text}
-          onChange={handleChange}
-        />
-        <button>Add</button>
-      </form>
-      <ul>
-        {tasks.map(({ id, text, isCompleted }) => (
-          <li key={id}>
-            <span
-              className={clsx({ [classes.completed]: isCompleted })}
-              onClick={() => handleSpanClick(id)}
-            >
-              {text}
-            </span>
-            &nbsp;
-            <button onClick={() => handleButtonClick(id)}>x</button>
-          </li>
-        ))}
-      </ul>
+      <Form text={text} onChange={handleChange} onSubmit={handleSubmit} />
+      <List
+        tasks={tasks}
+        onSpanClick={handleSpanClick}
+        onButtonClick={handleButtonClick}
+      />
     </>
   );
 }
