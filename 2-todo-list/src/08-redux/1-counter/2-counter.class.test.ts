@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
 
-import { Counter } from "./counter.class";
+import { Counter } from "./2-counter.class";
 
 test("it should increment by 1", () => {
   const counter = new Counter();

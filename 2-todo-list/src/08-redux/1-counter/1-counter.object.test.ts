@@ -1,6 +1,6 @@
 import { test, expect, beforeEach } from "vitest";
 
-import { counter } from "./counter.object";
+import { counter } from "./1-counter.object";
 
 beforeEach(() => {
   counter.reset();
