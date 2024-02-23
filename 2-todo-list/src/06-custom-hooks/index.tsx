@@ -2,13 +2,19 @@ import { useState, useCallback } from "react";
 import List from "./list";
 import type { Task } from "./task";
 
+/* container-presentational component */
 // import Form from "./form";
 
+/* higher-order component */
 // import createForm from "./form/hoc";
 // import FormComponent from "./form/form";
 // const Form = createForm(FormComponent);
 
-import Form from "./form/hooked-form";
+/* presentational component with hook inside the presentational component */
+// import Form from "./form/hooked-form";
+
+/* container-presentational component, with hook inside the container component */
+import Form from "./form/hooked-container";
 
 type TProps = {
   name?: string | null;
