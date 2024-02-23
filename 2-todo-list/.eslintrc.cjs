@@ -17,4 +17,12 @@ module.exports = {
     "no-console": ["error", { allow: ["error"] }],
     "no-magic-numbers": "warn",
   },
+  overrides: [
+    {
+      files: ["*.test.ts"],
+      rules: {
+        "no-magic-numbers": "off",
+      },
+    },
+  ],
 };
