@@ -9,40 +9,54 @@ type TProps = {
   name?: string | null;
 };
 
-const MIN_ID = 0;
-const LAST_ITEM = 1;
-const INCREMENT = 1;
-
 const INITIAL_TASKS: Task[] = [];
 
 export default function TodoList({ name }: TProps) {
   const [tasks, setTasks] = useState<Task[]>(INITIAL_TASKS);
 
+  // promise-based
+  // useEffect(() => {
+  //   api.retrieveTasks().then(setTasks);
+  // }, []);
+
   useEffect(() => {
-    api.retrieveTasks().then(setTasks);
+    fetchTasks();
   }, []);
 
-  const handleSubmit = useCallback(
-    (text: string) =>
-      setTasks((tasks) => {
-        const maxId = tasks.length
-          ? tasks[tasks.length - LAST_ITEM].id
-          : MIN_ID;
-        const newTask = { id: maxId + INCREMENT, text };
-        return [...tasks, newTask];
-      }),
-    []
-  );
+  async function fetchTasks() {
+    const tasks = await api.retrieveTasks();
+    setTasks(tasks);
+  }
 
-  const handleButtonClick = (id: number) =>
+  // promise-based
+  // const handleSubmit = useCallback((text: string) => {
+  //   api.createTask({ text }).then(fetchTasks);
+  // }, []);
+
+  const handleSubmit = useCallback(async (text: string) => {
+    const newTask = await api.createTask({ text });
+    setTasks((tasks) => [...tasks, newTask]);
+  }, []);
+
+  const handleButtonClick = async (id: number) => {
+    await api.deleteTask(id);
     setTasks((tasks) => tasks.filter((task) => task.id !== id));
+  };
 
-  const handleSpanClick = (id: number) =>
+  const handleSpanClick = async (id: number) => {
+    const task = tasks.find((task) => task.id === id);
+    if (!task) {
+      return;
+    }
+
+    const updatedTask = await api.updateTask(id, {
+      isCompleted: !task.isCompleted,
+    });
+
     setTasks((tasks) =>
-      tasks.map((task) =>
-        task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
-      )
+      tasks.map((task) => (task.id === id ? updatedTask : task))
     );
+  };
 
   return (
     <>
