@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, memo, useState } from "react";
+import FormComponent from "./form";
 
 type TProps = {
   onSubmit: (text: string) => void;
@@ -20,14 +21,10 @@ export default memo(function Form({ onSubmit }: TProps) {
 
   // console.log("form rendering");
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        placeholder="What next?"
-        autoFocus
-        value={text}
-        onChange={handleChange}
-      />
-      <button>Add</button>
-    </form>
+    <FormComponent
+      text={text}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+    />
   );
 });
