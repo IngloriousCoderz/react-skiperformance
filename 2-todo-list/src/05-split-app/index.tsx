@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import List from "./list";
-import type { Task } from "./task";
+import type { Task } from "../types/task";
 import Form from "./form";
 
 type TProps = {

@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 import classes from "./style.module.scss";
 
-import type { Task } from "../task";
+import type { Task } from "../../types/task";
 
 type TProps = {
   tasks: Task[];
