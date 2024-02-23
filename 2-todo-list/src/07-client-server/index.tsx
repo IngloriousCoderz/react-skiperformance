@@ -1,20 +1,9 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import List from "./list";
 import type { Task } from "../types/task";
 
-/* container-presentational component */
-// import Form from "./form";
-
-/* higher-order component */
-// import createForm from "./form/hoc";
-// import FormComponent from "./form/form";
-// const Form = createForm(FormComponent);
-
-/* presentational component with hook inside the presentational component */
-// import Form from "./form/hooked-form";
-
-/* container-presentational component, with hook inside the container component */
-import Form from "./form/hooked-container";
+import Form from "./form";
+import * as api from "../services/api";
 
 type TProps = {
   name?: string | null;
@@ -24,14 +13,14 @@ const MIN_ID = 0;
 const LAST_ITEM = 1;
 const INCREMENT = 1;
 
-const INITIAL_TASKS: Task[] = [
-  { id: 1, text: "Learn React", isCompleted: true },
-  { id: 2, text: "Eat pizza", isCompleted: false },
-  { id: 3, text: "Fall asleep" },
-];
+const INITIAL_TASKS: Task[] = [];
 
 export default function TodoList({ name }: TProps) {
   const [tasks, setTasks] = useState<Task[]>(INITIAL_TASKS);
+
+  useEffect(() => {
+    api.retrieveTasks().then(setTasks);
+  }, []);
 
   const handleSubmit = useCallback(
     (text: string) =>
