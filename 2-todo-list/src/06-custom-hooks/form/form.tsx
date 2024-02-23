@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent } from "react";
 
-type TProps = {
+export type TProps = {
   text: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
