@@ -23,6 +23,11 @@ type TAction = {
   payload?: string | number;
 };
 
+const INITIAL_STATE: TState = {
+  text: "",
+  tasks: [],
+};
+
 export const changeText = (text: string): TAction => ({
   type: CHANGE_TEXT,
   payload: text,
@@ -43,7 +48,10 @@ export const removeTask = (id: number): TAction => ({
   payload: id,
 });
 
-export default function todoList(state: TState, action: TAction): TState {
+export default function todoList(
+  state: TState = INITIAL_STATE,
+  action: TAction
+): TState {
   switch (action.type) {
     case CHANGE_TEXT:
       return { ...state, text: action.payload as string };
@@ -53,7 +61,10 @@ export default function todoList(state: TState, action: TAction): TState {
       const maxId: number = tasks.length
         ? tasks[tasks.length - LAST_ITEM].id
         : MIN_ID;
-      const newTask: TTask = { id: maxId + INCREMENT, text: "New task" };
+      const newTask: TTask = {
+        id: maxId + INCREMENT,
+        text: action.payload as string,
+      };
       return { text: "", tasks: [...tasks, newTask] };
     }
 
@@ -77,3 +88,31 @@ export default function todoList(state: TState, action: TAction): TState {
       return state;
   }
 }
+
+export const selectText = (state: TState): string => state.text;
+
+export const selectTasks = (state: TState): TTask[] => state.tasks;
+
+export const selectTask = (state: TState, id: number): TTask | undefined =>
+  state.tasks.find((task) => task.id === id);
+
+// const state = {
+//   firstName: "Matteo Antony",
+//   lastName: "Mistretta",
+// };
+
+// const selectFirstName = (state) => state.firstName;
+// const selectLastName = (state) => state.lastName;
+
+// // const selectFullName = (state) => `${state.firstName} ${state.lastName}`;
+
+// const selectFullName = createSelector(
+//   selectFirstName, selectLastName,
+//   (firstName, lastName) => `${firstName} ${lastName}`;
+// )
+
+// const selectTask = createSelector(
+//   selectTasks,
+//   (state, id) => id,
+//   (tasks, id) => tasks.find((task) => task.id === id);
+// )
