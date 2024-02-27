@@ -6,7 +6,7 @@ const MIN_ID = 0;
 const LAST_ITEM = 1;
 const INCREMENT = 1;
 
-export default function tasks(state: TTask[], action: TAction): TTask[] {
+export default function tasks(state: TTask[] = [], action: TAction): TTask[] {
   switch (action.type) {
     case ADD_TASK: {
       const maxId: number = state.length
