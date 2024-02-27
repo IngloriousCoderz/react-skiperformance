@@ -1,31 +1,20 @@
-import clsx from "clsx";
+import { useDispatch, useSelector } from "react-redux";
+import ListComponent from "./list";
+import { selectTasks } from "../store/selectors";
+import { removeTask, toggleCompleted } from "../store/action-creators";
 
-import classes from "./style.module.scss";
+export default function List() {
+  const tasks = useSelector(selectTasks);
+  const dispatch = useDispatch();
 
-import type { Task } from "../../types/task";
+  const handleSpanClick = (id: number) => dispatch(toggleCompleted(id));
+  const handleButtonClick = (id: number) => dispatch(removeTask(id));
 
-type TProps = {
-  tasks: Task[];
-  onSpanClick: (id: number) => void;
-  onButtonClick: (id: number) => void;
-};
-
-export default function List({ tasks, onSpanClick, onButtonClick }: TProps) {
-  // console.log("list rendering");
   return (
-    <ul>
-      {tasks.map(({ id, text, isCompleted }) => (
-        <li key={id}>
-          <span
-            className={clsx({ [classes.completed]: isCompleted })}
-            onClick={() => onSpanClick(id)}
-          >
-            {text}
-          </span>
-          &nbsp;
-          <button onClick={() => onButtonClick(id)}>x</button>
-        </li>
-      ))}
-    </ul>
+    <ListComponent
+      tasks={tasks}
+      onSpanClick={handleSpanClick}
+      onButtonClick={handleButtonClick}
+    />
   );
 }
