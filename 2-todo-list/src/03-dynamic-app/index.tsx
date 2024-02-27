@@ -63,11 +63,11 @@ export default function TodoList({ name }: TProps) {
   const handleSpanClick = (id: number) => {
     // clone
     // setTasks(tasks => {
-    //   const clonedTask = { ...tasks[index] };
-    //   const clone = [...tasks];
-    //   clonedTask.isCompleted = !clonedTask.isCompleted;
-    //   clone[index] = clonedTask;
-    //   return clone
+    // const clonedTask = { ...tasks[index] };
+    // const clone = [...tasks];
+    // clonedTask.isCompleted = !clonedTask.isCompleted;
+    // clone[index] = clonedTask;
+    // return clone
     // })
 
     // sandwich
