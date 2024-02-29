@@ -38,11 +38,6 @@ export default function TodoList({ name }: TProps) {
     setTasks((tasks) => [...tasks, newTask]);
   }, []);
 
-  const handleButtonClick = async (id: number) => {
-    await api.deleteTask(id);
-    setTasks((tasks) => tasks.filter((task) => task.id !== id));
-  };
-
   const handleSpanClick = async (id: number) => {
     const task = tasks.find((task) => task.id === id);
     if (!task) {
@@ -56,6 +51,11 @@ export default function TodoList({ name }: TProps) {
     setTasks((tasks) =>
       tasks.map((task) => (task.id === id ? updatedTask : task))
     );
+  };
+
+  const handleButtonClick = async (id: number) => {
+    await api.deleteTask(id);
+    setTasks((tasks) => tasks.filter((task) => task.id !== id));
   };
 
   return (
