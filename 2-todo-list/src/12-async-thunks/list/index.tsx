@@ -2,44 +2,24 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import ListComponent from "./list";
-import { replaceTasks } from "./tasks.slice";
 import { selectTasks } from "../store/selectors";
 
-import * as api from "../../services/api";
+import { fetchTasks, removeTask, toggleCompleted } from "../store/thunks";
+import { UnknownAction } from "@reduxjs/toolkit";
 
 export default function List() {
   const tasks = useSelector(selectTasks);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchTasks();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(fetchTasks() as unknown as UnknownAction);
+  }, [dispatch]);
 
-  async function fetchTasks() {
-    const tasks = await api.retrieveTasks();
-    dispatch(replaceTasks(tasks));
-  }
+  const handleSpanClick = async (id: number) =>
+    dispatch(toggleCompleted(id) as unknown as UnknownAction);
 
-  const handleSpanClick = async (id: number) => {
-    const task = tasks.find((task) => task.id === id);
-    if (!task) {
-      return;
-    }
-
-    const updatedTask = await api.updateTask(id, {
-      isCompleted: !task.isCompleted,
-    });
-
-    dispatch(
-      replaceTasks(tasks.map((task) => (task.id === id ? updatedTask : task)))
-    );
-  };
-
-  const handleButtonClick = async (id: number) => {
-    await api.deleteTask(id);
-    dispatch(replaceTasks(tasks.filter((task) => task.id !== id)));
-  };
+  const handleButtonClick = (id: number) =>
+    dispatch(removeTask(id) as unknown as UnknownAction);
 
   return (
     <ListComponent

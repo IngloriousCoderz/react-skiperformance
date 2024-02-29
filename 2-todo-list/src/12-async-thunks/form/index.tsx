@@ -20,7 +20,6 @@ export default function Form() {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     dispatch(addTask(text) as unknown as UnknownAction);
-    dispatch(changeText(""));
   };
 
   // console.log("form rendering");
