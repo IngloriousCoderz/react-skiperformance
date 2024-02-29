@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 // import "./index.css";
 
 // import { TodoList as App } from "./02-static-app";
-import App from "./10-redux-toolkit";
+import App from "./11-slices";
 
 // import "./08-redux/3-split-todo-list";
 
